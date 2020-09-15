@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //监听表单的注册事件
+        $('#from_reg').on('submit', function (e) {
+            //阻止表单默认提交行为
+            e.preventDefault()
+            //因为是提交表单,所以发起post请求
+            var date = {
+                username: $('#form_reg [name=username]').val(),
+                password: $('#form_reg [name=password]').val()
+            }
+
+            console.log(date);
+            $.post('http://ajax.frontend.itheima.net/api/reguser', date, function (res) {
+                if (res.status !== 0) {
+                    return layer.msg(res.message)
+
+                }
+                layer.msg('注册成功,请登录')
+                //模拟点击行为
+                $('#link_login').click()
+            })
+        })
+    </script>
+</body>
+
+</html>
